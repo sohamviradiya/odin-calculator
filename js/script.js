@@ -2,9 +2,10 @@ const screen = document.querySelector('.screen');
 const operations_container = document.querySelector('.operations-container');
 const digits_container = document.querySelector('.digits-container');
 
-addtoscreen = (string) => {screen.textContent=screen.textContent+string};
+addtoscreen = (string) => { screen.textContent=screen.textContent+string};
 pasteonscreen = (string) => screen.textContent=string;
 clearscreen = () => screen.textContent="";
+check_validity= (string) =>  (string.length<20);
 
 key_dict={}
 let current_number = 0;
@@ -43,12 +44,14 @@ function operation(a,b,operator)
 }
 
 function freezescreen(){
-    // TO DO add content
+    for(let i=0;i<10;i++)
+        key_dict[`${i}`].onclick= () => {};
+    screen.style.color='#FF0000';
 }
 
 //set key actions
 for(let i=0;i<10;i++)
-    key_dict[`${i}`].onclick= () => {check_validity(Number(screen.textContent))?addtoscreen(i):freezescreen()};
+    key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? addtoscreen(i) : freezescreen()};
 
 key_dict['+'].onclick = () => { operator = '+'};
 key_dict['-'].onclick = () => { operator = '-'};
@@ -57,10 +60,15 @@ key_dict['/'].onclick = () => { operator = '/'};
 key_dict['%'].onclick = () => { operator = '%'};
 //TO DO add '='
 key_dict['+/-'].onclick = () => { screen.textContent = '-' +screen.textContent };
-key_dict['.'].onclick = () => {addtoscreen('.')};
-key_dict.['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1)}
+key_dict['.'].onclick = () => {screen.textContent.includes('.') ? freezescreen() : addtoscreen('.')};
 
-check_validity= (number) => (number<10**16);
+key_dict['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1);
+    if(screen.style.color=='#FF0000'){
+        screen.style.color=='#000000';
+        for(let i=0;i<10;i++)
+            key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? addtoscreen(i) : freezescreen()};
+    }    
+}
 
 start=key_dict['C'];
 
