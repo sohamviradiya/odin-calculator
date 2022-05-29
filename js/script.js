@@ -9,7 +9,7 @@ clearscreen = () => screen.textContent="";
 key_dict={}
 let current_number = 0;
 let first_operand = 0;
-let operand='='
+let operator='=';
 let second_operand = 0;
 
 digits_container.childNodes.forEach(element => {
@@ -42,15 +42,23 @@ function operation(a,b,operator)
     }
 }
 
-freezescreen(){
+function freezescreen(){
     // TO DO add content
 }
 
-
+//set key actions
 for(let i=0;i<10;i++)
-{
     key_dict[`${i}`].onclick= () => {check_validity(Number(screen.textContent))?addtoscreen(i):freezescreen()};
-}
+
+key_dict['+'].onclick = () => { operator = '+'};
+key_dict['-'].onclick = () => { operator = '-'};
+key_dict['*'].onclick = () => { operator = '*'};
+key_dict['/'].onclick = () => { operator = '/'};
+key_dict['%'].onclick = () => { operator = '%'};
+//TO DO add '='
+key_dict['+/-'].onclick = () => { screen.textContent = '-' +screen.textContent };
+key_dict['.'].onclick = () => {addtoscreen('.')};
+key_dict.['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1)}
 
 check_validity= (number) => (number<10**16);
 
@@ -58,6 +66,8 @@ start=key_dict['C'];
 
 function calculate(){
     //TO DO add content
+
+    first_operand = scan_num();
 }
 
 start.onclick = () => {
