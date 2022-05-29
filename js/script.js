@@ -9,6 +9,7 @@ clearscreen = () => screen.textContent="";
 key_dict={}
 let current_number = 0;
 let first_operand = 0;
+let operand='='
 let second_operand = 0;
 
 digits_container.childNodes.forEach(element => {
@@ -41,12 +42,26 @@ function operation(a,b,operator)
     }
 }
 
+freezescreen(){
+    // TO DO add content
+}
+
+
+for(let i=0;i<10;i++)
+{
+    key_dict[`${i}`].onclick= () => {check_validity(Number(screen.textContent))?addtoscreen(i):freezescreen()};
+}
+
 check_validity= (number) => (number<10**16);
 
 start=key_dict['C'];
 
+function calculate(){
+    //TO DO add content
+}
+
 start.onclick = () => {
-        
+        calculate();
 };
 
 
