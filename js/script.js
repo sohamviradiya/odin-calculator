@@ -7,17 +7,46 @@ pasteonscreen = (string) => screen.textContent=string;
 clearscreen = () => screen.textContent="";
 
 key_dict={}
+let current_number = 0;
+let first_operand = 0;
+let second_operand = 0;
 
 digits_container.childNodes.forEach(element => {
     key_dict[element.textContent]=element;
-    element.onclick = () => addtoscreen(element.textContent);
 }); 
 
 operations_container.childNodes.forEach(element => {
     key_dict[element.textContent]=element;
-    element.onclick = () => addtoscreen(element.textContent);
 }); 
 
+function operation(a,b,operator)
+{
+    if(operator === '+')
+        return a+b;
+    else if(operator === '-')
+        return a-b;
+    else if(operator === '*')
+        return a*b;
+    else if(operator === '/')
+    {  
+        if(b==0)
+            return 'error';
+        return a/b;
+    }
+    else if(operator === '%')
+    {
+        if(b==0)
+            return 'error';
+        return a%b;
+    }
+}
 
+check_validity= (number) => (number<10**16);
+
+start=key_dict['C'];
+
+start.onclick = () => {
+        
+};
 
 
