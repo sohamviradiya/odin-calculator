@@ -50,14 +50,6 @@ function operation()
         return first_operand;
 }
 
-let over_flaw=0;
-function freezescreen(){
-    for(let i=0;i<10;i++)
-        key_dict[`${i}`].onclick= () => {};
-    screen.style.color='#FF0000';
-    over_flaw=1;
-}
-
 //set keys
 for(let i=0;i<10;i++)
     key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? first_operanddsecond_operandtoscreen(i) : freezescreen()};
@@ -77,17 +69,12 @@ key_dict['/'].onclick = () => { operator = '/';
 key_dict['%'].onclick = () => { operator = '%';
     scan_num()};
 
-//TO DO first_operanddsecond_operand '='
+//TO DO  '='
 key_dict['+/-'].onclick = () => { screen.textContent = '-' +screen.textContent };
-key_dict['.'].onclick = () => {screen.textContent.includes('.') ? first_operanddsecond_operandtoscreen('') : first_operanddsecond_operandtoscreen('.')};
+key_dict['.'].onclick = () => {screen.textContent.includes('.') ? addtoscreen('') : addtoscreen('.')};
 
-key_dict['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1);
-    if(over_flaw==1){
-        screen.style.color='#000000';
-        for(let i=0;i<10;i++)
-            key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? first_operanddsecond_operandtoscreen(i) : freezescreen()};
-    }    
-}
+key_dict['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1);}
+
 
 start=key_dict['C'];
 
