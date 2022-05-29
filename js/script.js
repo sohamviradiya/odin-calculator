@@ -10,8 +10,13 @@ check_validity= (string) =>  (string.length<20);
 key_dict={}
 let current_number = 0;
 let first_operand = 0;
-let operator='=';
+let operator='';
 let second_operand = 0;
+
+function scan_num(){
+    first_operand = Number(screen.textContent);
+}
+
 
 digits_container.childNodes.forEach(element => {
     key_dict[element.textContent]=element;
@@ -21,26 +26,28 @@ operations_container.childNodes.forEach(element => {
     key_dict[element.textContent]=element;
 }); 
 
-function operation(a,b,operator)
+function operation()
 {
     if(operator === '+')
-        return a+b;
+        return first_operand+second_operand;
     else if(operator === '-')
-        return a-b;
+        return first_operand-second_operand;
     else if(operator === '*')
-        return a*b;
+        return first_operand*second_operand;
     else if(operator === '/')
     {  
         if(b==0)
             return 'error';
-        return a/b;
+        return first_operand/second_operand;
     }
     else if(operator === '%')
     {
         if(b==0)
             return 'error';
-        return a%b;
+        return first_operand%second_operand;
     }
+    else
+        return first_operand;
 }
 
 let over_flaw=0;
@@ -51,37 +58,44 @@ function freezescreen(){
     over_flaw=1;
 }
 
-//set key actions
+//set keys
 for(let i=0;i<10;i++)
-    key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? addtoscreen(i) : freezescreen()};
+    key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? first_operanddsecond_operandtoscreen(i) : freezescreen()};
 
-key_dict['+'].onclick = () => { operator = '+'};
-key_dict['-'].onclick = () => { operator = '-'};
-key_dict['*'].onclick = () => { operator = '*'};
-key_dict['/'].onclick = () => { operator = '/'};
-key_dict['%'].onclick = () => { operator = '%'};
-//TO DO add '='
+key_dict['+'].onclick = () => { operator = '+';
+    scan_num()};
+
+key_dict['-'].onclick = () => { operator = '-';
+    scan_num()};
+
+key_dict['*'].onclick = () => { operator = '*';
+    scan_num()};
+
+key_dict['/'].onclick = () => { operator = '/';
+    scan_num()};
+
+key_dict['%'].onclick = () => { operator = '%';
+    scan_num()};
+
+//TO DO first_operanddsecond_operand '='
 key_dict['+/-'].onclick = () => { screen.textContent = '-' +screen.textContent };
-key_dict['.'].onclick = () => {screen.textContent.includes('.') ? addtoscreen('') : addtoscreen('.')};
+key_dict['.'].onclick = () => {screen.textContent.includes('.') ? first_operanddsecond_operandtoscreen('') : first_operanddsecond_operandtoscreen('.')};
 
 key_dict['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1);
     if(over_flaw==1){
         screen.style.color='#000000';
         for(let i=0;i<10;i++)
-            key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? addtoscreen(i) : freezescreen()};
+            key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? first_operanddsecond_operandtoscreen(i) : freezescreen()};
     }    
 }
 
 start=key_dict['C'];
 
-function calculate(){
-    //TO DO add content
-
-    first_operand = scan_num();
-}
-
 start.onclick = () => {
-        calculate();
+    clearscreen();
+    first_operand=0;
+    second_operand=0;
+    operator='=';
 };
 
 
