@@ -43,10 +43,12 @@ function operation(a,b,operator)
     }
 }
 
+let over_flaw=0;
 function freezescreen(){
     for(let i=0;i<10;i++)
         key_dict[`${i}`].onclick= () => {};
     screen.style.color='#FF0000';
+    over_flaw=1;
 }
 
 //set key actions
@@ -60,11 +62,11 @@ key_dict['/'].onclick = () => { operator = '/'};
 key_dict['%'].onclick = () => { operator = '%'};
 //TO DO add '='
 key_dict['+/-'].onclick = () => { screen.textContent = '-' +screen.textContent };
-key_dict['.'].onclick = () => {screen.textContent.includes('.') ? freezescreen() : addtoscreen('.')};
+key_dict['.'].onclick = () => {screen.textContent.includes('.') ? addtoscreen('') : addtoscreen('.')};
 
 key_dict['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1);
-    if(screen.style.color=='#FF0000'){
-        screen.style.color=='#000000';
+    if(over_flaw==1){
+        screen.style.color='#000000';
         for(let i=0;i<10;i++)
             key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? addtoscreen(i) : freezescreen()};
     }    
