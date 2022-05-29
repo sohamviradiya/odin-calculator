@@ -15,8 +15,9 @@ let second_operand = 0;
 
 function scan_num(){
     first_operand = Number(screen.textContent);
+    console.log(first_operand);
+    clearscreen();
 }
-
 
 digits_container.childNodes.forEach(element => {
     key_dict[element.textContent]=element;
@@ -36,13 +37,13 @@ function operation()
         return first_operand*second_operand;
     else if(operator === '/')
     {  
-        if(b==0)
+        if( second_operand ==0)
             return 'error';
         return first_operand/second_operand;
     }
     else if(operator === '%')
     {
-        if(b==0)
+        if(second_operand == 0)
             return 'error';
         return first_operand%second_operand;
     }
@@ -52,7 +53,7 @@ function operation()
 
 //set keys
 for(let i=0;i<10;i++)
-    key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? first_operanddsecond_operandtoscreen(i) : freezescreen()};
+    key_dict[`${i}`].onclick= () => {check_validity(screen.textContent) ? addtoscreen(i) : addtoscreen('')};
 
 key_dict['+'].onclick = () => { operator = '+';
     scan_num()};
@@ -69,15 +70,18 @@ key_dict['/'].onclick = () => { operator = '/';
 key_dict['%'].onclick = () => { operator = '%';
     scan_num()};
 
+key_dict['='].onclick = () => { 
+    second_operand = Number(screen.textContent);
+    console.log(second_operand);
+    screen.textContent = operation();
+}
 //TO DO  '='
 key_dict['+/-'].onclick = () => { screen.textContent = '-' +screen.textContent };
 key_dict['.'].onclick = () => {screen.textContent.includes('.') ? addtoscreen('') : addtoscreen('.')};
 
 key_dict['E'].onclick = () => { screen.textContent = screen.textContent.substring(0,screen.textContent.length-1);}
 
-
 start=key_dict['C'];
-
 start.onclick = () => {
     clearscreen();
     first_operand=0;
