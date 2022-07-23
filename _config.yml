@@ -1,4 +1,4 @@
 theme: jekyll-theme-leap-day
 layout: page
 title: "Calculator"
-permalink: .../main/index.html
+permalink: ./index.html
